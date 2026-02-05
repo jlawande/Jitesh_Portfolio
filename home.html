@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
+
     body {
   font-family: 'Poppins', sans-serif;
   color: white;
@@ -75,6 +76,79 @@ body::after{
   }
 }
 
+/* CURTAIN */
+.curtain{
+  position:fixed;
+  inset:0;
+  display:flex;
+  z-index:9999;
+  pointer-events:none;
+}
+
+.curtain-left,
+.curtain-right{
+  width:50%;
+  background:#000;
+  animation:curtainOpen 1.6s ease forwards;
+}
+
+.curtain-left{
+  transform-origin:left;
+}
+
+.curtain-right{
+  transform-origin:right;
+}
+
+/* Curtain Open Animation */
+@keyframes curtainOpen{
+  0%{
+    transform:scaleX(1);
+  }
+  100%{
+    transform:scaleX(0);
+  }
+}
+/* INITIAL STATE */
+.logo-circle,
+.type-text,
+.subtitle,
+.portfolio-card{
+  opacity:0;
+  transform:translateY(30px);
+}
+.show-top{
+  opacity:1 !important;
+  transform:translateY(0) !important;
+  transition:all 1.2s ease;
+}
+
+
+@keyframes dropDown{
+  0%{
+    transform:translateY(-60px);
+    opacity:0;
+  }
+  100%{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
+
+.show-up{
+  animation:riseUp 1.3s ease forwards;
+}
+
+@keyframes riseUp{
+  0%{
+    transform:translateY(80px);
+    opacity:0;
+  }
+  100%{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
 
     /* LOGO */
     .logo-circle {
@@ -232,6 +306,11 @@ body::after{
 </head>
 
 <body>
+<!-- THEATRE CURTAIN -->
+<div class="curtain">
+  <div class="curtain-left"></div>
+  <div class="curtain-right"></div>
+</div>
 
 <div class="container py-5">
 
@@ -297,6 +376,8 @@ body::after{
 
 <!-- TYPEWRITER SCRIPT -->
 <script>
+window.addEventListener("load", () => {
+
   const text = "Jitesh Narayan Lawande";
   let i = 0;
 
@@ -308,8 +389,32 @@ body::after{
     }
   }
 
-  typing();
+  // Remove curtain
+  setTimeout(() => {
+    document.querySelector(".curtain").style.display = "none";
+  }, 1600);
+
+  // Show logo + text + subtitle
+  setTimeout(() => {
+    document.querySelector(".logo-circle").classList.add("show-top");
+    document.querySelector(".type-text").classList.add("show-top");
+    document.querySelector(".subtitle").classList.add("show-top");
+
+    // START typing AFTER animation visible
+    typing();
+
+  }, 1700);
+
+  // Cards animation
+  document.querySelectorAll(".portfolio-card").forEach((card, i) => {
+    setTimeout(() => {
+      card.classList.add("show-up");
+    }, 1900 + i * 250);
+  });
+
+});
 </script>
+
 
 </body>
 </html>
