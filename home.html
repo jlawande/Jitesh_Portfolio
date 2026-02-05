@@ -13,11 +13,68 @@
 
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-      color: white;
-      min-height: 100vh;
-    }
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background: linear-gradient(
+    120deg,
+    #0f2027,
+    #203a43,
+    #2c5364,
+    #1c3b52,
+    #0f2027
+  );
+
+  background-size: 400% 400%;
+  animation: gradientFlow 18s ease infinite;
+}
+
+/* Gradient Animation */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  filter:blur(120px);
+  z-index:-1;
+  opacity:.35;
+  animation:floatLight 18s ease-in-out infinite;
+}
+
+/* Blue Light */
+body::before{
+  background:#00e5ff;
+  top:-120px;
+  left:-120px;
+}
+
+/* Teal Light */
+body::after{
+  background:#00ffc3;
+  bottom:-150px;
+  right:-150px;
+  animation-delay:6s;
+}
+
+/* Floating Animation */
+@keyframes floatLight{
+  0%,100%{
+    transform:translateY(0) translateX(0);
+  }
+  50%{
+    transform:translateY(-60px) translateX(40px);
+  }
+}
+
 
     /* LOGO */
     .logo-circle {
@@ -58,61 +115,11 @@
     }
 
     /* IMAGE CARDS */
-    .portfolio-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 22px;
-      cursor: pointer;
-      transition: transform .5s ease, box-shadow .5s ease;
-    }
-
-    .portfolio-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    }
-
-    .portfolio-card img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      transition: transform 1s ease;
-    }
-
-    .portfolio-card:hover img {
-      transform: scale(1.15);
-    }
-
-    /* ATTRACTIVE GRADIENT OVERLAY */
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(0,0,0,0.55));
-      opacity: 0;
-      transition: all .6s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 35px;
-      text-align: center;
-    }
-
-    .portfolio-card:hover .overlay {
-      opacity: 1;
-      backdrop-filter: blur(4px);
-    }
-
-    /* OVERLAY TEXT IMPROVED */
-    .overlay p {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #ffffff;
-      font-weight: 400;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-      animation: fadeUp .7s ease;
-    }
+   .portfolio-card img{
+  width:100%;
+  height:500px;
+  object-fit:cover;
+}
 
     @keyframes fadeUp {
       from {
@@ -125,11 +132,102 @@
       }
     }
 
+    .portfolio-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:24px;
+  transition:all .6s ease;
+}
+
+.portfolio-card img{
+  width:100%;
+  height:500px;
+  object-fit:cover;
+  transition:transform 1.2s cubic-bezier(.2,.6,.2,1);
+}
+
+.portfolio-card:hover img{
+  transform:scale(1.18);
+}
+
+/* Glass overlay */
+.overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(140deg,rgba(0,0,0,.85),rgba(0,0,0,.55));
+  backdrop-filter:blur(6px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:35px;
+  text-align:center;
+  opacity:0;
+  transition:all .7s cubic-bezier(.2,.8,.2,1);
+}
+
+.portfolio-card:hover .overlay{
+  opacity:1;
+}
+
+/* Text animation */
+.overlay p{
+  font-size:16px;
+  line-height:1.8;
+  transform:translateY(30px);
+  opacity:0;
+  transition:all .7s ease .15s;
+}
+
+.portfolio-card:hover .overlay p{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* CTA Button */
+.card-btn{
+  margin-top:25px;
+  padding:12px 30px;
+  border-radius:40px;
+  font-weight:600;
+  letter-spacing:.5px;
+  border:1px solid rgba(255,255,255,.4);
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+  color:#fff;
+  text-decoration:none;
+  transition:all .4s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.card-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);
+  transform:translateX(-100%);
+  transition:.8s;
+}
+
+.card-btn:hover::before{
+  transform:translateX(100%);
+}
+
+.card-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(0,0,0,.4);
+  border-color:#fff;
+}
+
+
+
     /* Responsive */
     @media(max-width:768px){
       .type-text { font-size: 26px; }
       .logo-circle { width:120px;height:120px;font-size:45px; }
     }
+
   </style>
 </head>
 
@@ -152,42 +250,46 @@
   <div class="row mt-5 g-4">
 
     <!-- IMAGE 1 -->
-    <div class="col-md-6">
-      <a href="https://livefeehost.rf.gd/" target="_blank" class="text-decoration-none">
-        <div class="portfolio-card">
-          <img src="img1-home.png" alt="Ecommerce Project">
+<div class="col-md-6">
+  <div class="portfolio-card">
+    <img src="img1-home.png" alt="Ecommerce Project">
 
-          <div class="overlay">
-            <p>
-              E-Commerce Frontend: HTML, CSS, Tailwind, Bootstrap, ReactJS, Babel.<br>
-              Backend: PHP CodeIgniter 4, MySQL.<br>
-              Features: Login, Register, Forgot Password, Email Integration.<br>
-              Payment: Stripe & Razorpay (Test Gateway).<br><br>
-              <strong>Demo Sample Project – Created for Client Presentation (Not Live).</strong>
-            </p>
-          </div>
+    <div class="overlay">
+      <p>
+        E-Commerce Frontend: HTML, CSS, Tailwind, Bootstrap, ReactJS, Babel.<br>
+        Backend: PHP CodeIgniter 4, MySQL.<br>
+        Features: Login, Register, Forgot Password, Email Integration.<br>
+        Payment: Stripe & Razorpay (Test Gateway).<br><br>
+        <strong>Demo Sample Project – Created for Client Presentation (Not Live).</strong>
+      </p>
 
-        </div>
+      <a href="https://livefeehost.rf.gd/" target="_blank" class="card-btn">
+        View Demo ↗
       </a>
     </div>
+  </div>
+</div>
 
-    <!-- IMAGE 2 -->
-    <div class="col-md-6">
-      <a href="https://jlawande.github.io/Jitesh_Portfolio/portfolio" target="_blank" class="text-decoration-none">
-        <div class="portfolio-card">
-          <img src="img2-home.png" alt="Portfolio">
+<!-- IMAGE 2 -->
+<div class="col-md-6">
+  <div class="portfolio-card">
+    <img src="img2-home.png" alt="Portfolio">
 
-          <div class="overlay">
-            <p>
-              Portfolio of Jitesh Narayan Lawande.<br>
-              Experience in Web Design & Development.<br>
-              End-to-End Website Development: From Scratch Development, Redesign, UI/UX Design, Responsive Layouts & Full Website Implementation.<br> Strong Focus on Modern Design, Performance & User Experience.
-            </p>
-          </div>
+    <div class="overlay">
+      <p>
+        Portfolio of Jitesh Narayan Lawande.<br>
+        End-to-End Website Development from Scratch.<br>
+        UI/UX Design, Redesign, Responsive Layouts & Full Website Implementation.<br>
+        Strong Focus on Modern Design & Performance.
+      </p>
 
-        </div>
+      <a href="https://jlawande.github.io/Jitesh_Portfolio/portfolio" target="_blank" class="card-btn">
+        View Portfolio ↗
       </a>
     </div>
+  </div>
+</div>
+
 
   </div>
 
