@@ -417,10 +417,10 @@ body::after{
   <div class="type-text" id="typeName"></div>
 
   <!-- DETAILS -->
-  <div class="subtitle mt-2">
+  <!-- <div class="subtitle mt-2">
     B.Com | Vikhroli East | Web Designer & Developer
-  </div>
-
+  </div> -->
+<div class="subtitle mt-2" id="typeSubtitle"></div>
   <!-- PORTFOLIO IMAGES -->
   <!-- <div class="portfolio-horizontal mt-5"> -->
     <div class="row">
@@ -570,18 +570,31 @@ $(document).ready(function(){
 <script>
 window.addEventListener("load", () => {
 
-  const text = "Jitesh Narayan Lawande";
-  let i = 0;
+  const nameText = "Jitesh Narayan Lawande";
+  const subText  = "B.Com | Vikhroli East | Web Designer & Developer";
 
-  function typing(){
-    if(i < text.length){
-      document.getElementById("typeName").innerHTML += text.charAt(i);
+  let i = 0;
+  let j = 0;
+
+  function typeName(){
+    if(i < nameText.length){
+      document.getElementById("typeName").innerHTML += nameText.charAt(i);
       i++;
-      setTimeout(typing, 80);
+      setTimeout(typeName, 80);
+    } else {
+      typeSubtitle(); // name complete → start subtitle
     }
   }
 
-  // Remove curtain
+  function typeSubtitle(){
+    if(j < subText.length){
+      document.getElementById("typeSubtitle").innerHTML += subText.charAt(j);
+      j++;
+      setTimeout(typeSubtitle, 40);
+    }
+  }
+
+  // Remove curtain (same timing)
   setTimeout(() => {
     document.querySelector(".curtain").style.display = "none";
   }, 2000);
@@ -592,19 +605,19 @@ window.addEventListener("load", () => {
     document.querySelector(".type-text").classList.add("show-top");
     document.querySelector(".subtitle").classList.add("show-top");
 
-    // START typing AFTER animation visible
-    typing();
+    typeName(); // start typing name
 
-  }, 1700);
+  }, 500);
 
-  // Cards animation
-  document.querySelectorAll(".portfolio-card").forEach((card, i) => {
+  // Cards animation SAME
+  document.querySelectorAll(".portfolio-card").forEach((card, index) => {
     setTimeout(() => {
       card.classList.add("show-up");
-    }, 1900 + i * 250);
+    }, 1900 + index * 250);
   });
 
 });
+
 </script>
 
 
