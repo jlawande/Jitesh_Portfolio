@@ -11,6 +11,11 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Owl Carousel -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.theme.default.min.css">
+
+
   <style>
 
     body {
@@ -209,7 +214,7 @@ body::after{
     .portfolio-card{
   position:relative;
   overflow:hidden;
-  border-radius:24px;
+  /*border-radius:24px;*/
   transition:all .6s ease;
 }
 
@@ -296,12 +301,103 @@ body::after{
 
 
 
-    /* Responsive */
+/* OWL CUSTOM */
+.owl-stage{
+  display:flex;
+  align-items:center;
+}
+
+.owl-item{
+  transition:all .6s ease;
+  opacity:.6;
+  transform:scale(.92);
+}
+
+.owl-item.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+/* Big Premium Look */
+.portfolio-card img{
+  height:500px;
+  width:100%;
+  object-fit:cover;
+  /*border-radius:24px;*/
+}
+
+/* Owl Nav Hatke Style */
+.owl-nav button{
+  width:55px;
+  height:55px;
+  /*border-radius:50% !important;*/
+  background:rgba(255,255,255,.08) !important;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.3) !important;
+  color:white !important;
+  font-size:24px !important;
+  margin:10px;
+  transition:.4s;
+}
+
+.owl-nav button:hover{
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 15px 30px rgba(0,0,0,.4);
+}
+/* ===== NAV CENTER BOTTOM FIX ===== */
+
+.portfolio-carousel{
+  position:relative;
+  padding-bottom:90px; /* arrows ke liye space */
+}
+
+.portfolio-carousel .owl-nav{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+}
+
+/* Remove default margin */
+.portfolio-carousel .owl-nav button{
+  margin:0 !important;
+}
+
+
+/* Responsive */
     @media(max-width:768px){
       .type-text { font-size: 26px; }
       .logo-circle { width:120px;height:120px;font-size:45px; }
     }
+    
+@media(max-width:700px){
+      .from-small-devices{
+  display: block;
+}
+    }
 
+    @media(max-width:576px){
+      .from-small-devices{
+  display: none;
+}
+    }
+
+@media(max-width:400px){
+.from-small-devices{
+  display: none;
+}
+}
+
+@media(max-width:350px){
+.overlay p{
+  font-size: 14px;
+}
+}
   </style>
 </head>
 
@@ -326,10 +422,13 @@ body::after{
   </div>
 
   <!-- PORTFOLIO IMAGES -->
+  <!-- <div class="portfolio-horizontal mt-5"> -->
+    <div class="row">
+      <div class="from-small-devices d-sm-none d-md-block d-lg-block d-xl-block col-md-12 col-lg-12 col-xl-12">
   <div class="row mt-5 g-4">
 
     <!-- IMAGE 1 -->
-<div class="col-md-6">
+<div class="col-md-12 col-lg-6 col-xl-6">
   <div class="portfolio-card">
     <img src="img1-home.png" alt="Ecommerce Project">
 
@@ -350,7 +449,7 @@ body::after{
 </div>
 
 <!-- IMAGE 2 -->
-<div class="col-md-6">
+<div class="col-md-12 col-lg-6 col-xl-6">
   <div class="portfolio-card">
     <img src="img2-home.png" alt="Portfolio">
 
@@ -369,10 +468,103 @@ body::after{
   </div>
 </div>
 
+</div>
+</div>
+  </div>
 
+  <div class="row">
+      <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none col-12 col-sm-12">
+<div class="owl-carousel portfolio-carousel mt-5">
+  <!-- CARD 1 -->
+  <div class="item px-2">
+    <div class="portfolio-card">
+      <img src="img1-home.png">
+
+      <div class="overlay">
+        <p>
+          E-Commerce Frontend: HTML, CSS, Tailwind, Bootstrap, ReactJS, Babel.<br>
+          Backend: PHP CodeIgniter 4, MySQL.<br>
+          Features: Login, Register, Forgot Password, Email Integration.<br>
+          Payment: Stripe & Razorpay (Test Gateway).<br><br>
+          <strong>Demo Sample Project – Created for Client Presentation (Not Live).</strong>
+        </p>
+
+        <a href="https://livefeehost.rf.gd/" target="_blank" class="card-btn">
+          View Demo ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="item px-2">
+    <div class="portfolio-card">
+      <img src="img2-home.png">
+
+      <div class="overlay">
+        <p>
+          Portfolio of Jitesh Narayan Lawande.<br>
+          End-to-End Website Development from Scratch.<br>
+          UI/UX Design, Redesign, Responsive Layouts & Full Website Implementation.<br>
+          Strong Focus on Modern Design & Performance.
+        </p>
+
+        <a href="https://jlawande.github.io/Jitesh_Portfolio/portfolio" target="_blank" class="card-btn">
+          View Portfolio ↗
+        </a>
+      </div>
+    </div>
   </div>
 
 </div>
+
+      </div>
+    </div>
+<!-- </div> -->
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+  function initCarousel(){
+    if($(window).width() <= 750){
+
+      if(!$('.portfolio-carousel').hasClass("owl-loaded")){
+        $('.portfolio-carousel').owlCarousel({
+          loop:true,
+          margin:25,
+          nav:true,
+          dots:false,
+          autoplay:false,
+          autoplayTimeout:3500,
+          smartSpeed:900,
+          autoplayHoverPause:false,
+          responsive:{
+            350:{items:1},
+            400:{items:1},
+            576:{items:1},
+            1200:{items:1}
+          }
+        });
+      }
+
+    } else {
+      if($('.portfolio-carousel').hasClass("owl-loaded")){
+        $('.portfolio-carousel').trigger('destroy.owl.carousel');
+        $('.portfolio-carousel').removeClass('owl-loaded');
+        $('.portfolio-carousel').find('.owl-stage-outer').children().unwrap();
+      }
+    }
+  }
+
+  initCarousel();
+  $(window).resize(initCarousel);
+
+});
+</script>
 
 <!-- TYPEWRITER SCRIPT -->
 <script>
@@ -392,7 +584,7 @@ window.addEventListener("load", () => {
   // Remove curtain
   setTimeout(() => {
     document.querySelector(".curtain").style.display = "none";
-  }, 1600);
+  }, 2000);
 
   // Show logo + text + subtitle
   setTimeout(() => {
